@@ -5,6 +5,7 @@ from functools import partial
 from collections import defaultdict, Counter
 import math
 import pprint
+import csv
 
 
 def entropy(probabilities):
@@ -92,25 +93,20 @@ def forest_classify(trees, input):
     return Counter(votes).most_common(1)[0][0]
 
 
-inputs = [
-    ({'level': 'Senior', 'lang': 'Java', 'tweets': 'no', 'phd': 'no'}, False),
-    ({'level': 'Senior', 'lang': 'Java', 'tweets': 'no', 'phd': 'yes'}, False),
-    ({'level': 'Mid', 'lang': 'Python', 'tweets': 'no', 'phd': 'no'}, True),
-    ({'level': 'Junior', 'lang': 'Python', 'tweets': 'no', 'phd': 'no'}, True),
-    ({'level': 'Junior', 'lang': 'R', 'tweets': 'yes', 'phd': 'no'}, True),
-    ({'level': 'Junior', 'lang': 'R', 'tweets': 'yes', 'phd': 'yes'}, False),
-    ({'level': 'Mid', 'lang': 'R', 'tweets': 'yes', 'phd': 'yes'}, True),
-    ({'level': 'Senior', 'lang': 'Python', 'tweets': 'no', 'phd': 'no'}, False),
-    ({'level': 'Senior', 'lang': 'R', 'tweets': 'yes', 'phd': 'no'}, True),
-    ({'level': 'Junior', 'lang': 'Python', 'tweets': 'yes', 'phd': 'no'}, True),
-    ({'level': 'Senior', 'lang': 'Python', 'tweets': 'yes', 'phd': 'yes'}, True),
-    ({'level': 'Mid', 'lang': 'Python', 'tweets': 'no', 'phd': 'yes'}, True),
-    ({'level': 'Mid', 'lang': 'Java', 'tweets': 'yes', 'phd': 'no'}, True),
-    ({'level': 'Junior', 'lang': 'Python', 'tweets': 'no', 'phd': 'yes'}, False)
-]
+def read_csv(src, to_dict=True):
+    with open(src) as f:
+        data = list(csv.reader(f))
 
+    if to_dict:
+        attribute = data[0][:-1]
+        records = data[1:]
+        data_dict = list(
+            map(
+                lambda record: (dict(zip(attribute, record[:-1])), eval(record[-1])),
+                records
+            )
+        )
+        return data_dict
 
-tree = build_tree_id3(inputs)
-pp = pprint.PrettyPrinter(indent=4)
-pp.pprint(tree)
-# pp.pprint(inputs)
+    else:
+        return data
