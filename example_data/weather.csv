@@ -1,0 +1,15 @@
+Day,Outlook,Temp.,Humidity,Wind,Decision
+1,Sunny,Hot,High,Weak,False
+2,Sunny,Hot,High,Strong,False
+3,Overcast,Hot,High,Weak,True
+4,Rain,Mild,High,Weak,True
+5,Rain,Cool,Falsermal,Weak,True
+6,Rain,Cool,Falsermal,Strong,False
+7,Overcast,Cool,Falsermal,Strong,True
+8,Sunny,Mild,High,Weak,False
+9,Sunny,Cool,Falsermal,Weak,True
+10,Rain,Mild,Falsermal,Weak,True
+11,Sunny,Mild,Falsermal,Strong,True
+12,Overcast,Mild,High,Strong,True
+13,Overcast,Hot,Falsermal,Weak,True
+14,Rain,Mild,High,Strong,False
